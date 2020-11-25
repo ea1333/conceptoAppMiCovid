@@ -1,0 +1,146 @@
+<resources>
+    <string name="app_name">miCOVID</string>
+    <string-array name="provincias">
+        <item>-seleccionar-</item>
+        <item>Buenos Aires</item>
+        <item>Catamarca</item>
+        <item>Chaco</item>
+        <item>Chubut</item>
+        <item>Ciudad Autónoma de Buenos Aires</item>
+        <item>Corrientes</item>
+        <item>Córdoba</item>
+        <item>Entre Ríos</item>
+        <item>Formosa</item>
+        <item>Jujuy</item>
+        <item>La Pampa</item>
+        <item>La Rioja</item>
+        <item>Misiones</item>
+        <item>Neuquén</item>
+        <item>Río Negro</item>
+        <item>Salta</item>
+        <item>San Juan</item>
+        <item>San Luis</item>
+        <item>Santa Cruz</item>
+        <item>Santa Fe</item>
+        <item>Santiago del Estero</item>
+        <item>Tierra del Fuego, Antártida e Islas del Atlántico Sur</item>
+        <item>Tucumán</item>
+    </string-array>
+    <string-array name="ciudadesCABA">
+        <item>Barracas</item>
+        <item>Belgrano</item>
+        <item>Chacarita</item>
+        <item>Constitución</item>
+        <item>La Boca</item>
+        <item>Montserrat</item>
+        <item>Palemo</item>
+        <item>Recoleta</item>
+        <item>San Telmo</item>
+        <item>Villa Fiorito</item>
+    </string-array>
+    <string-array name="ciudadesBsAs">
+        <item>Azul</item>
+        <item>Bahía Blanca</item>
+        <item>Chivilcoy</item>
+        <item>Ezeiza</item>
+        <item>La Plata</item>
+        <item>Mar del Plata</item>
+        <item>Mar del Tuyú</item>
+        <item>Morón</item>
+        <item>San Isidro</item>
+        <item>San Justo</item>
+        <item>Santa Teresita</item>
+        <item>Tandil</item>
+        <item>Vicente López</item>
+    </string-array>
+    <string-array name="ciudadesCata">
+        <item>San Fernando del Valle de Catamarca</item>
+    </string-array>
+    <string-array name="ciudadesCba">
+        <item>Córdoba</item>
+        <item>Cosquín</item>
+        <item>Cruz del Eje</item>
+        <item>Rio Cuarto</item>
+        <item>Villa María</item>
+    </string-array>
+    <string-array name="ciudadesChb">
+        <item>Comodoro Rivadavia</item>
+        <item>Rawson</item>
+        <item>Trelew</item>
+    </string-array>
+    <string-array name="ciudadesChc">
+        <item>Resistencia</item>
+    </string-array>
+    <string-array name="ciudadesCorr">
+        <item>Corrientes</item>
+        <item>Goya</item>
+    </string-array>
+    <string-array name="ciudadesER">
+        <item>Concordia</item>
+        <item>Gualeguaychú</item>
+        <item>Paraná</item>
+    </string-array>
+    <string-array name="ciudadesFor">
+        <item>Clorida</item>
+        <item>Formosa</item>
+    </string-array>
+    <string-array name="ciudadesJjy">
+        <item>San Salvador de Jujuy</item>
+    </string-array>
+    <string-array name="ciudadesLP">
+        <item>Santa Rosa</item>
+    </string-array>
+    <string-array name="ciudadesLR">
+        <item>La Rioja</item>
+    </string-array>
+    <string-array name="ciudadesMza">
+        <item>Malargüe</item>
+        <item>Mendoza</item>
+        <item>San Rafael</item>
+    </string-array>
+    <string-array name="ciudadesMis">
+        <item>Bernardo de Irigoyen</item>
+        <item>Oberá</item>
+        <item>Posadas</item>
+    </string-array>
+    <string-array name="ciudadesNqn">
+        <item>Neuquén</item>
+        <item>Villa la Angostura</item>
+    </string-array>
+    <string-array name="ciudadesRN">
+        <item>Bariloche</item>
+        <item>General Roca</item>
+        <item>Viedma</item>
+    </string-array>
+    <string-array name="ciudadesSalta">
+        <item>Salta</item>
+        <item>Tartagal</item>
+    </string-array>
+    <string-array name="ciudadesSE">
+        <item>Santiago del Estero</item>
+    </string-array>
+    <string-array name="ciudadesSC">
+        <item>El Calafate</item>
+        <item>Rio Gallegos</item>
+    </string-array>
+    <string-array name="ciudadesSJ">
+        <item>San Juan</item>
+    </string-array>
+    <string-array name="ciudadesSL">
+        <item>San Luis</item>
+    </string-array>
+    <string-array name="ciudadesSF">
+        <item>Arequito</item>
+        <item>Rafaela</item>
+        <item>Rosario</item>
+        <item>Santa Fe</item>
+    </string-array>
+    <string-array name="ciudadesTF">
+        <item>Puerto Argentina</item>
+        <item>Rio Grande</item>
+        <item>Ushuaia</item>
+    </string-array>
+    <string-array name="ciudadesTuc">
+        <item>San Miguel de Tucumán</item>
+    </string-array>
+</resources>
