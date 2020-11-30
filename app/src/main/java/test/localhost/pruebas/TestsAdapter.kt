@@ -17,9 +17,9 @@ internal class TestsAdapter(private val context: Context, listaTests: MutableLis
         val tests = listaTests[position]
         holder.rvListaTestsFecha.text = "Fecha: " + fechaFormateada.format(fechaDB.parse(tests.fecha))
         holder.rvListaTestsResultado.text = when (tests.resultado) {
-            "P" -> "Resultado: posiblemente positivo"
-            "N" -> "Resultado: posiblemente negativo"
-            else -> "Resultado: no disponible"
+            "P" -> "Resultado: Posiblemente positivo"
+            "N" -> "Resultado: Posiblemente negativo"
+            else -> "Resultado: No disponible"
         }
         holder.rvListaTestsLink.setOnClickListener {
             val intent = Intent(it.context, TestActivity::class.java)

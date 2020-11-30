@@ -23,38 +23,14 @@
                 android:value=".MainActivity" />
         </activity>
         <activity android:name=".DashboardActivity" />
-        <activity
-            android:name=".TestsActivity"
-            android:parentActivityName=".DashboardActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DashboardActivity" />
-        </activity>
-        <activity
-            android:name=".OpcionesActivity"
-            android:parentActivityName=".DashboardActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DashboardActivity" />
-        </activity>
-        <activity
-            android:name=".ActualizarUsuarioActivity"
-            android:parentActivityName=".DashboardActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DashboardActivity" />
-        </activity>
+        <activity android:name=".TestsActivity" />
+        <activity android:name=".OpcionesActivity" />
+        <activity android:name=".ActualizarUsuarioActivity" />
         <activity android:name=".SinSintomasActivity" />
         <activity android:name=".ProbableActivity" />
         <activity android:name=".PositivoActivity" />
         <activity android:name=".NegativoActivity" />
-        <activity
-            android:name=".TestActivity"
-            android:parentActivityName=".TestsActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".TestsActivity" />
-        </activity>
+        <activity android:name=".TestActivity" />
     </application>
 
 </manifest>

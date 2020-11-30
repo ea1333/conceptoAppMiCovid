@@ -74,12 +74,6 @@
                     android:text="Continuar"
                     style="?android:attr/buttonBarButtonStyle"
                     android:textColor="#fff" />
-                <Button
-                    android:id="@+id/botonPreguntasCancelar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:text="Cancelar" />
             </LinearLayout>
             <TextView
                 android:layout_width="match_parent"

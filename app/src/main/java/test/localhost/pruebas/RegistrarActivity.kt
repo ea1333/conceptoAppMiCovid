@@ -12,6 +12,8 @@ class RegistrarActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registrar)
+        val actionBar = supportActionBar
+        actionBar!!.title = "Registrarse"
         val spinnerProvincia = findViewById<Spinner>(R.id.registroCampoProvincia)
         val provincias = resources.getStringArray(R.array.provincias)
         spinnerProvincia.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, provincias)
@@ -99,8 +101,7 @@ class RegistrarActivity : AppCompatActivity() {
             }
         }
         registroBtnRegistrar.setOnClickListener {
-            val contexto = this
-            val db = DatabaseHelper(contexto)
+            val db = DatabaseHelper(this)
             val usuario = Usuario()
             usuario.nombre = findViewById<TextInputEditText>(R.id.registroCampoNombre).text.toString()
             usuario.apellido = findViewById<TextInputEditText>(R.id.registroCampoApellido).text.toString()

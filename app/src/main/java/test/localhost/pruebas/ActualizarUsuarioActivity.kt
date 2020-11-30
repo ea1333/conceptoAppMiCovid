@@ -15,9 +15,11 @@ class ActualizarUsuarioActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registrar)
-        val idUsuario = intent.extras?.getInt("EXTRA_IDUSUARIO")
-        val contexto = this
-        val db = DatabaseHelper(contexto)
+        val idUsuario = intent.extras?.getInt(EXTRA_IDUSUARIO)
+        val db = DatabaseHelper(this)
+        val actionBar = supportActionBar
+        actionBar!!.title = "Actualizar datos del usuario"
+        actionBar!!.setDisplayHomeAsUpEnabled(true)
         var registroCampoNombre = findViewById<TextInputEditText>(R.id.registroCampoNombre)
         var registroCampoApellido = findViewById<TextInputEditText>(R.id.registroCampoApellido)
         var registroCampoFechaNacimiento = findViewById<TextInputEditText>(R.id.registroCampoFechaNacimiento)
@@ -115,8 +117,7 @@ class ActualizarUsuarioActivity : AppCompatActivity() {
             text = "Actualizar"
         }
         registroBtnRegistrar.setOnClickListener {
-            val contexto = this
-            val db = DatabaseHelper(contexto)
+            val db = DatabaseHelper(this)
             val usuario = Usuario()
             usuario.nombre = findViewById<TextInputEditText>(R.id.registroCampoNombre).text.toString()
             usuario.apellido = findViewById<TextInputEditText>(R.id.registroCampoApellido).text.toString()
@@ -137,5 +138,9 @@ class ActualizarUsuarioActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
+    }
+    override fun onSupportNavigateUp() : Boolean {
+        super.onBackPressed()
+        return true
     }
 }
