@@ -9,23 +9,31 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class OpcionesActivity : AppCompatActivity() {
+    private lateinit var swCiudadCasos: Switch
+    private lateinit var swOtraPersona: Switch
+    private lateinit var swFiebre: Switch
+    private lateinit var swDolorCabeza: Switch
+    private lateinit var swTos: Switch
+    private lateinit var swDolorCuerpo: Switch
+    private lateinit var swOtrasCondiciones: Switch
+    private lateinit var botonPreguntasContinuar: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_opciones)
         val actionBar = supportActionBar
         actionBar!!.title = "Nuevo test"
-        actionBar!!.setDisplayHomeAsUpEnabled(true)
+        actionBar.setDisplayHomeAsUpEnabled(true)
         val idUsuario = intent.extras?.getInt(EXTRA_IDUSUARIO)
         val calendario = Calendar.getInstance()
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-        val swCiudadCasos = findViewById<Switch>(R.id.switchCiudadCasos)
-        val swOtraPersona = findViewById<Switch>(R.id.switchOtraPersona)
-        val swFiebre = findViewById<Switch>(R.id.switchFiebre)
-        val swDolorCabeza = findViewById<Switch>(R.id.switchDolorCabeza)
-        val swTos = findViewById<Switch>(R.id.switchTos)
-        val swDolorCuerpo = findViewById<Switch>(R.id.switchDolorCuerpo)
-        val swOtrasCondiciones = findViewById<Switch>(R.id.switchOtrasCondiciones)
-        val botonPreguntasContinuar = findViewById<Button>(R.id.botonPreguntasContinuar)
+        swCiudadCasos = findViewById(R.id.switchCiudadCasos)
+        swOtraPersona = findViewById(R.id.switchOtraPersona)
+        swFiebre = findViewById(R.id.switchFiebre)
+        swDolorCabeza = findViewById(R.id.switchDolorCabeza)
+        swTos = findViewById(R.id.switchTos)
+        swDolorCuerpo = findViewById(R.id.switchDolorCuerpo)
+        swOtrasCondiciones = findViewById(R.id.switchOtrasCondiciones)
+        botonPreguntasContinuar = findViewById(R.id.botonPreguntasContinuar)
         botonPreguntasContinuar.setOnClickListener {
             val test = Test()
             test.fecha = sdf.format(calendario.time)

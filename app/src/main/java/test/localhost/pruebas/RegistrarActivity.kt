@@ -5,20 +5,41 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.radiobutton.MaterialRadioButton
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.activity_registrar.*
 
 class RegistrarActivity : AppCompatActivity() {
+    private lateinit var registroCampoNombre: TextInputEditText
+    private lateinit var registroCampoApellido: TextInputEditText
+    private lateinit var registroCampoFechaNacimiento: TextInputEditText
+    private lateinit var registroCampoDNI: TextInputEditText
+    private lateinit var registroCampoContrasenia: TextInputEditText
+    private lateinit var registroCampoContraseniaRepetir: TextInputEditText
+    private lateinit var registroGeneroF: MaterialRadioButton
+    private lateinit var registroGeneroM: MaterialRadioButton
+    private lateinit var registroGeneroO: MaterialRadioButton
+    private lateinit var spinnerProvincia: Spinner
+    private lateinit var spinnerCiudades: Spinner
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registrar)
+        registroCampoNombre = findViewById(R.id.registroCampoNombre)
+        registroCampoApellido = findViewById(R.id.registroCampoApellido)
+        registroCampoFechaNacimiento = findViewById(R.id.registroCampoFechaNacimiento)
+        registroCampoDNI = findViewById(R.id.registroCampoDNI)
+        registroCampoContrasenia = findViewById(R.id.registroCampoContrasenia)
+        registroCampoContraseniaRepetir = findViewById(R.id.registroCampoContraseniaRepetir)
+        registroGeneroF = findViewById(R.id.registroGeneroF)
+        registroGeneroM = findViewById(R.id.registroGeneroM)
+        registroGeneroO = findViewById(R.id.registroGeneroO)
         val actionBar = supportActionBar
         actionBar!!.title = "Registrarse"
-        val spinnerProvincia = findViewById<Spinner>(R.id.registroCampoProvincia)
+        spinnerProvincia = findViewById(R.id.registroCampoProvincia)
         val provincias = resources.getStringArray(R.array.provincias)
         spinnerProvincia.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, provincias)
         val registroBtnRegistrar = findViewById<Button>(R.id.registroBtnRegistrar)
-        val spinnerCiudades = findViewById<Spinner>(R.id.registroCampoCiudad)
+        spinnerCiudades = findViewById(R.id.registroCampoCiudad)
         val ciudadesCABA = resources.getStringArray(R.array.ciudadesCABA)
         val ciudadesCABAAA = ArrayAdapter(this, android.R.layout.simple_spinner_item, ciudadesCABA)
         val ciudadesBsAs = resources.getStringArray(R.array.ciudadesBsAs)
@@ -101,12 +122,44 @@ class RegistrarActivity : AppCompatActivity() {
             }
         }
         registroBtnRegistrar.setOnClickListener {
+            if (registroCampoNombre.text.toString().trim().isEmpty()) {
+                Toast.makeText(this, "Escriba su nombre", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (registroCampoApellido.text.toString().trim().isEmpty()) {
+                Toast.makeText(this, "Escriba su apellido", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (registroCampoContrasenia.text.toString().trim().isEmpty()) {
+                Toast.makeText(this, "Escriba una contraseña", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (registroCampoFechaNacimiento.text.toString().trim().isEmpty()) {
+                Toast.makeText(this, "Escriba su fecha de nacimiento", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (registroCampoDNI.text.toString().trim().isEmpty()) {
+                Toast.makeText(this, "Escriba su DNI", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (registroCampoContraseniaRepetir.text.toString().trim().isEmpty()) {
+                Toast.makeText(this, "Repita la contraseña", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (registroCampoContraseniaRepetir.text.toString().trim() != registroCampoContrasenia.text.toString().trim()) {
+                Toast.makeText(this, "No repitió la contraseña", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (!registroGeneroM.isChecked && !registroGeneroF.isChecked && !registroGeneroO.isChecked) {
+                Toast.makeText(this, "Seleccione su género", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
             val db = DatabaseHelper(this)
             val usuario = Usuario()
-            usuario.nombre = findViewById<TextInputEditText>(R.id.registroCampoNombre).text.toString()
-            usuario.apellido = findViewById<TextInputEditText>(R.id.registroCampoApellido).text.toString()
-            usuario.dni = findViewById<TextInputEditText>(R.id.registroCampoDNI).text.toString().toInt()
-            usuario.contrasenia = findViewById<TextInputEditText>(R.id.registroCampoContrasenia).text.toString()
+            usuario.nombre = registroCampoNombre.text.toString()
+            usuario.apellido = registroCampoApellido.text.toString()
+            usuario.dni = registroCampoDNI.text.toString().toInt()
+            usuario.contrasenia = registroCampoContrasenia.text.toString()
             usuario.genero = when {
                 registroGeneroF.isChecked -> "F"
                 registroGeneroM.isChecked -> "M"

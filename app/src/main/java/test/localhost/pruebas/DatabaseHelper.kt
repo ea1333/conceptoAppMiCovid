@@ -173,9 +173,30 @@ class DatabaseHelper(var contexto: Context) : SQLiteOpenHelper(contexto, "www", 
         }
         return lista
     }
-    fun obtenerTestPorId(id: Int?): Test {
+    fun obtenerTestPorId(idUsuario: Int?): Test {
         val db = this.readableDatabase
-        val consulta = "SELECT * FROM tests WHERE id = $id"
+        val consulta = "SELECT * FROM tests WHERE id = $idUsuario"
+        val result = db.rawQuery(consulta, null)
+        val t = Test()
+        if (result != null) {
+            result.moveToFirst()
+            t.id = Integer.parseInt(result.getString(result.getColumnIndex("id")))
+            t.fecha = result.getString(result.getColumnIndex("fecha"))
+            t.resultado = result.getString(result.getColumnIndex("resultado"))
+            t.idUsuario = Integer.parseInt(result.getString(result.getColumnIndex("idUsuario")))
+            t.viajo = result.getString(result.getColumnIndex("viajo"))
+            t.estuvoConOtraPersona = result.getString(result.getColumnIndex("estuvoConOtraPersona"))
+            t.fiebre = result.getString(result.getColumnIndex("fiebre"))
+            t.dolorDeCabeza = result.getString(result.getColumnIndex("dolorDeCabeza"))
+            t.tos = result.getString(result.getColumnIndex("tos"))
+            t.dolorEnCuerpo = result.getString(result.getColumnIndex("dolorEnCuerpo"))
+            t.condicionesPreexistentes = result.getString(result.getColumnIndex("condicionesPreexistentes"))
+        }
+        return t
+    }
+    fun obtenerTestMasRecientePorIdUsuario(idUsuario: Int?): Test {
+        val db = this.readableDatabase
+        val consulta = "SELECT * FROM tests WHERE idUsuario = $idUsuario ORDER BY fecha DESC"
         val result = db.rawQuery(consulta, null)
         val t = Test()
         if (result != null) {

@@ -14,17 +14,17 @@ class TestsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_tests)
         val actionBar = supportActionBar
         actionBar!!.title = "Lista de tests"
-        actionBar!!.setDisplayHomeAsUpEnabled(true)
+        actionBar.setDisplayHomeAsUpEnabled(true)
         val rvListaTests : RecyclerView = findViewById(R.id.rvListaTests)
         val linearLayoutManager = LinearLayoutManager(this)
         rvListaTests.layoutManager = linearLayoutManager
         rvListaTests.setHasFixedSize(true)
         val idUsuario = intent.extras?.getInt(EXTRA_IDUSUARIO)
         db = DatabaseHelper(this)
-        val data = db.leerTestsPorIdUsuario(idUsuario);
+        val data = db.leerTestsPorIdUsuario(idUsuario)
+        val dataReciente = db.obtenerTestMasRecientePorIdUsuario(idUsuario)
         if (data.size > 0) {
-            rvListaTests.visibility = View.VISIBLE
-            val mAdapter = TestsAdapter(this, data)
+            val mAdapter = TestsAdapter(this, data, dataReciente)
             rvListaTests.adapter = mAdapter
         }
         else {

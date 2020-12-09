@@ -44,6 +44,7 @@
                 android:layout_height="wrap_content"
                 android:textColorHint="@color/colorAccent"
                 android:hint="Fecha de nacimiento">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/registroCampoFechaNacimiento"
                     android:layout_width="match_parent"

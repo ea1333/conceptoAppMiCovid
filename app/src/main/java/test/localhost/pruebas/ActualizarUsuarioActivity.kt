@@ -2,16 +2,27 @@ package test.localhost.pruebas
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.radiobutton.MaterialRadioButton
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.activity_registrar.*
 
 class ActualizarUsuarioActivity : AppCompatActivity() {
+    private lateinit var registroCampoNombre: TextInputEditText
+    private lateinit var registroCampoApellido: TextInputEditText
+    private lateinit var registroCampoFechaNacimiento: TextInputEditText
+    private lateinit var registroCampoDNI: TextInputEditText
+    private lateinit var registroCampoContrasenia: TextInputEditText
+    private lateinit var registroCampoContraseniaRepetir: TextInputEditText
+    private lateinit var registroGeneroF: MaterialRadioButton
+    private lateinit var registroGeneroM: MaterialRadioButton
+    private lateinit var registroGeneroO: MaterialRadioButton
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registrar)
@@ -19,14 +30,34 @@ class ActualizarUsuarioActivity : AppCompatActivity() {
         val db = DatabaseHelper(this)
         val actionBar = supportActionBar
         actionBar!!.title = "Actualizar datos del usuario"
-        actionBar!!.setDisplayHomeAsUpEnabled(true)
-        var registroCampoNombre = findViewById<TextInputEditText>(R.id.registroCampoNombre)
-        var registroCampoApellido = findViewById<TextInputEditText>(R.id.registroCampoApellido)
-        var registroCampoFechaNacimiento = findViewById<TextInputEditText>(R.id.registroCampoFechaNacimiento)
-        var registroCampoDNI = findViewById<TextInputEditText>(R.id.registroCampoDNI)
-        var registroCampoContrasenia = findViewById<TextInputEditText>(R.id.registroCampoContrasenia)
-        var registroCampoContraseniaRepetir = findViewById<TextInputEditText>(R.id.registroCampoContraseniaRepetir)
+        actionBar.setDisplayHomeAsUpEnabled(true)
+        registroCampoNombre = findViewById(R.id.registroCampoNombre)
+        registroCampoApellido = findViewById(R.id.registroCampoApellido)
+        registroCampoFechaNacimiento = findViewById(R.id.registroCampoFechaNacimiento)
+        registroCampoDNI = findViewById(R.id.registroCampoDNI)
+        registroCampoContrasenia = findViewById(R.id.registroCampoContrasenia)
+        registroCampoContraseniaRepetir = findViewById(R.id.registroCampoContraseniaRepetir)
+        registroGeneroF = findViewById(R.id.registroGeneroF)
+        registroGeneroM = findViewById(R.id.registroGeneroM)
+        registroGeneroO = findViewById(R.id.registroGeneroO)
         val usuarioPorId = db.obtenerDatosUsuarioPorId(idUsuario)
+
+        var usuNombre: String = usuarioPorId.nombre
+        registroCampoNombre.setText(usuNombre)
+        var usuApellido: String = usuarioPorId.apellido
+        registroCampoApellido.setText(usuApellido)
+        var usuFechaNacimiento: String = usuarioPorId.fechaNacimiento
+        registroCampoFechaNacimiento.setText(usuFechaNacimiento)
+        var usuDNI: String = usuarioPorId.dni.toString()
+        registroCampoDNI.setText(usuDNI)
+        if (usuarioPorId.genero == "M") {
+            registroGeneroM.isChecked = true
+        } else if (usuarioPorId.genero == "F") {
+            registroGeneroF.isChecked = true
+        } else {
+            registroGeneroO.isChecked = true
+        }
+
         val spinnerProvincia = findViewById<Spinner>(R.id.registroCampoProvincia)
         val registroBtnRegistrar = findViewById<Button>(R.id.registroBtnRegistrar)
         val provincias = resources.getStringArray(R.array.provincias)
@@ -80,6 +111,34 @@ class ActualizarUsuarioActivity : AppCompatActivity() {
         val ciudadesTFAA = ArrayAdapter(this, android.R.layout.simple_spinner_item, ciudadesTF)
         val ciudadesTuc = resources.getStringArray(R.array.ciudadesTuc)
         val ciudadesTucAA = ArrayAdapter(this, android.R.layout.simple_spinner_item, ciudadesTuc)
+
+        when (usuarioPorId.provincia) {
+            "Buenos Aires" -> spinnerCiudades.adapter = ciudadesBsAsAA
+            "Catamarca" -> spinnerCiudades.adapter = ciudadesCataAA
+            "Chaco" -> spinnerCiudades.adapter = ciudadesChcAA
+            "Chubut" -> spinnerCiudades.adapter = ciudadesChbAA
+            "Ciudad Autónoma de Buenos Aires" -> spinnerCiudades.adapter = ciudadesCABAAA
+            "Corrientes" -> spinnerCiudades.adapter = ciudadesCorrAA
+            "Córdoba" -> spinnerCiudades.adapter = ciudadesCbaAA
+            "Entre Ríos" -> spinnerCiudades.adapter = ciudadesERAA
+            "Formosa" -> spinnerCiudades.adapter = ciudadesForAA
+            "Jujuy" -> spinnerCiudades.adapter = ciudadesJjyAA
+            "La Pampa" -> spinnerCiudades.adapter = ciudadesLPAA
+            "La Rioja" -> spinnerCiudades.adapter = ciudadesLRAA
+            "Mendoza" -> spinnerCiudades.adapter = ciudadesMzaAA
+            "Misiones" -> spinnerCiudades.adapter = ciudadesMisAA
+            "Neuquén" -> spinnerCiudades.adapter = ciudadesNqnAA
+            "Río Negro" -> spinnerCiudades.adapter = ciudadesRNAA
+            "Salta" -> spinnerCiudades.adapter = ciudadesSaltaAA
+            "San Juan" -> spinnerCiudades.adapter = ciudadesSJAA
+            "San Luis" -> spinnerCiudades.adapter = ciudadesSLAA
+            "Santa Cruz" -> spinnerCiudades.adapter = ciudadesSCAA
+            "Santa Fe" -> spinnerCiudades.adapter = ciudadesSFAA
+            "Santiago del Estero" -> spinnerCiudades.adapter = ciudadesSEAA
+            "Tierra del Fuego, Antártida e Islas del Atlántico Sur" -> spinnerCiudades.adapter = ciudadesTFAA
+            "Tucumán" -> spinnerCiudades.adapter = ciudadesTucAA
+        }
+
         spinnerProvincia.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 when (spinnerProvincia.selectedItem) {
@@ -131,9 +190,7 @@ class ActualizarUsuarioActivity : AppCompatActivity() {
             usuario.fechaNacimiento = findViewById<TextInputEditText>(R.id.registroCampoFechaNacimiento).text.toString()
             usuario.provincia = findViewById<Spinner>(R.id.registroCampoProvincia).selectedItem.toString()
             usuario.ciudad = findViewById<Spinner>(R.id.registroCampoCiudad).selectedItem.toString()
-            if (idUsuario != null) {
-                usuario.id = idUsuario
-            }
+            if (idUsuario != null) usuario.id = idUsuario
             db.modificarUsuario(usuario)
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)

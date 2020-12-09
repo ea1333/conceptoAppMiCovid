@@ -12,7 +12,7 @@ class TestActivity : AppCompatActivity() {
         setContentView(R.layout.activity_test)
         val actionBar = supportActionBar
         actionBar!!.title = "Detalle del test"
-        actionBar!!.setDisplayHomeAsUpEnabled(true)
+        actionBar.setDisplayHomeAsUpEnabled(true)
         val idTest = intent.extras?.getInt("idTest")
         val db = DatabaseHelper(this)
         val datosTest = db.obtenerTestPorId(idTest)

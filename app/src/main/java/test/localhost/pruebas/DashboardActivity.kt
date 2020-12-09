@@ -16,7 +16,7 @@ class DashboardActivity : AppCompatActivity() {
         val db = DatabaseHelper(this)
         val idDsuarioPorDNI = db.obtenerIdUsuarioPorDNI(DNI)
         val usuarioPorId = db.obtenerDatosUsuarioPorId(idDsuarioPorDNI)
-        actionBar!!.title = "Bienvenido, ${usuarioPorId.nombre} ${usuarioPorId.apellido}"
+        actionBar!!.title = "Bienvenido, ${usuarioPorId.nombre}"
         val dashboardBotonNuevoTest = findViewById<Button>(R.id.dashboardBotonNuevoTest)
         val dashboardBotonTestsAnteriores = findViewById<Button>(R.id.dashboardBotonTestsAnteriores)
         val dashboardBotonModifUsuario = findViewById<Button>(R.id.dashboardBotonModifUsuario)
