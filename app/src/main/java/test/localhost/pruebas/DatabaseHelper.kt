@@ -93,6 +93,7 @@ class DatabaseHelper(var contexto: Context) : SQLiteOpenHelper(contexto, "www", 
                 usuario.apellido = resultado.getString(resultado.getColumnIndex("apellido"))
                 usuario.dni = resultado.getInt(resultado.getColumnIndex("dni"))
                 usuario.contrasenia = resultado.getString(resultado.getColumnIndex("contrasenia"))
+                usuario.provincia = resultado.getString(resultado.getColumnIndex("provincia"))
                 lista.add(usuario)
             } while (resultado.moveToNext())
         }

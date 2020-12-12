@@ -14,14 +14,15 @@ const val EXTRA_DNI = "test.localhost.pruebas.EXTRA_DNI"
 class MainActivity : AppCompatActivity() {
     private lateinit var campoDNI: TextInputEditText
     private lateinit var campoContrasenia: TextInputEditText
+    private lateinit var db: DatabaseHelper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val db = DatabaseHelper(this)
+        db = DatabaseHelper(this)
         val tvLista = findViewById<TextView>(R.id.tvLista)
         val data = db.leerUsuarios();
         for (i in 0 until data.size)
-            tvLista.append("${data[i].id}: ${data[i].nombre} ${data[i].apellido}, DNI ${data[i].dni}, Pass: ${data[i].contrasenia} \n")
+            tvLista.append("${data[i].id}: ${data[i].nombre} ${data[i].apellido}, DNI ${data[i].dni}, Pass: ${data[i].contrasenia}, Provincia: ${data[i].provincia}\n")
     }
     fun login(view: View) {
         campoDNI = findViewById(R.id.loginCampoDNI)

@@ -21,6 +21,8 @@ class RegistrarActivity : AppCompatActivity() {
     private lateinit var registroGeneroO: MaterialRadioButton
     private lateinit var spinnerProvincia: Spinner
     private lateinit var spinnerCiudades: Spinner
+    private lateinit var registroBtnRegistrar: Button
+    private lateinit var db: DatabaseHelper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registrar)
@@ -33,13 +35,15 @@ class RegistrarActivity : AppCompatActivity() {
         registroGeneroF = findViewById(R.id.registroGeneroF)
         registroGeneroM = findViewById(R.id.registroGeneroM)
         registroGeneroO = findViewById(R.id.registroGeneroO)
+        spinnerProvincia = findViewById(R.id.registroCampoProvincia)
+        spinnerCiudades = findViewById(R.id.registroCampoCiudad)
+        registroBtnRegistrar = findViewById(R.id.registroBtnRegistrar)
+
         val actionBar = supportActionBar
         actionBar!!.title = "Registrarse"
-        spinnerProvincia = findViewById(R.id.registroCampoProvincia)
         val provincias = resources.getStringArray(R.array.provincias)
         spinnerProvincia.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, provincias)
         val registroBtnRegistrar = findViewById<Button>(R.id.registroBtnRegistrar)
-        spinnerCiudades = findViewById(R.id.registroCampoCiudad)
         val ciudadesCABA = resources.getStringArray(R.array.ciudadesCABA)
         val ciudadesCABAAA = ArrayAdapter(this, android.R.layout.simple_spinner_item, ciudadesCABA)
         val ciudadesBsAs = resources.getStringArray(R.array.ciudadesBsAs)
@@ -123,38 +127,42 @@ class RegistrarActivity : AppCompatActivity() {
         }
         registroBtnRegistrar.setOnClickListener {
             if (registroCampoNombre.text.toString().trim().isEmpty()) {
-                Toast.makeText(this, "Escriba su nombre", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Escriba su nombre", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
             if (registroCampoApellido.text.toString().trim().isEmpty()) {
-                Toast.makeText(this, "Escriba su apellido", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Escriba su apellido", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
             if (registroCampoContrasenia.text.toString().trim().isEmpty()) {
-                Toast.makeText(this, "Escriba una contraseña", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Escriba una contraseña", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
             if (registroCampoFechaNacimiento.text.toString().trim().isEmpty()) {
-                Toast.makeText(this, "Escriba su fecha de nacimiento", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Escriba su fecha de nacimiento", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
             if (registroCampoDNI.text.toString().trim().isEmpty()) {
-                Toast.makeText(this, "Escriba su DNI", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Escriba su DNI", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
             if (registroCampoContraseniaRepetir.text.toString().trim().isEmpty()) {
-                Toast.makeText(this, "Repita la contraseña", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Repita la contraseña", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
             if (registroCampoContraseniaRepetir.text.toString().trim() != registroCampoContrasenia.text.toString().trim()) {
-                Toast.makeText(this, "No repitió la contraseña", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "No repitió la contraseña", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
             if (!registroGeneroM.isChecked && !registroGeneroF.isChecked && !registroGeneroO.isChecked) {
-                Toast.makeText(this, "Seleccione su género", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Seleccione su género", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
-            val db = DatabaseHelper(this)
+            if (spinnerProvincia.selectedItemPosition == 0) {
+                Toast.makeText(this, "Seleccione su provincia", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+            db = DatabaseHelper(this)
             val usuario = Usuario()
             usuario.nombre = registroCampoNombre.text.toString()
             usuario.apellido = registroCampoApellido.text.toString()

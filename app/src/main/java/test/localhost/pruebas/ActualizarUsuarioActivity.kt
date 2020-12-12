@@ -23,11 +23,16 @@ class ActualizarUsuarioActivity : AppCompatActivity() {
     private lateinit var registroGeneroF: MaterialRadioButton
     private lateinit var registroGeneroM: MaterialRadioButton
     private lateinit var registroGeneroO: MaterialRadioButton
+    private lateinit var spinnerProvincia: Spinner
+    private lateinit var spinnerCiudades: Spinner
+    private lateinit var registroBtnRegistrar: Button
+    private lateinit var db: DatabaseHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registrar)
         val idUsuario = intent.extras?.getInt(EXTRA_IDUSUARIO)
-        val db = DatabaseHelper(this)
+        db = DatabaseHelper(this)
         val actionBar = supportActionBar
         actionBar!!.title = "Actualizar datos del usuario"
         actionBar.setDisplayHomeAsUpEnabled(true)
@@ -40,6 +45,9 @@ class ActualizarUsuarioActivity : AppCompatActivity() {
         registroGeneroF = findViewById(R.id.registroGeneroF)
         registroGeneroM = findViewById(R.id.registroGeneroM)
         registroGeneroO = findViewById(R.id.registroGeneroO)
+        spinnerProvincia = findViewById(R.id.registroCampoProvincia)
+        spinnerCiudades = findViewById(R.id.registroCampoCiudad)
+        registroBtnRegistrar = findViewById(R.id.registroBtnRegistrar)
         val usuarioPorId = db.obtenerDatosUsuarioPorId(idUsuario)
 
         var usuNombre: String = usuarioPorId.nombre
@@ -50,19 +58,14 @@ class ActualizarUsuarioActivity : AppCompatActivity() {
         registroCampoFechaNacimiento.setText(usuFechaNacimiento)
         var usuDNI: String = usuarioPorId.dni.toString()
         registroCampoDNI.setText(usuDNI)
-        if (usuarioPorId.genero == "M") {
-            registroGeneroM.isChecked = true
-        } else if (usuarioPorId.genero == "F") {
-            registroGeneroF.isChecked = true
-        } else {
-            registroGeneroO.isChecked = true
+        when (usuarioPorId.genero) {
+            "M" -> registroGeneroM.isChecked = true
+            "F" -> registroGeneroF.isChecked = true
+            else -> registroGeneroO.isChecked = true
         }
 
-        val spinnerProvincia = findViewById<Spinner>(R.id.registroCampoProvincia)
-        val registroBtnRegistrar = findViewById<Button>(R.id.registroBtnRegistrar)
         val provincias = resources.getStringArray(R.array.provincias)
         spinnerProvincia.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, provincias)
-        val spinnerCiudades = findViewById<Spinner>(R.id.registroCampoCiudad)
         val ciudadesCABA = resources.getStringArray(R.array.ciudadesCABA)
         val ciudadesCABAAA = ArrayAdapter(this, android.R.layout.simple_spinner_item, ciudadesCABA)
         val ciudadesBsAs = resources.getStringArray(R.array.ciudadesBsAs)
@@ -113,30 +116,102 @@ class ActualizarUsuarioActivity : AppCompatActivity() {
         val ciudadesTucAA = ArrayAdapter(this, android.R.layout.simple_spinner_item, ciudadesTuc)
 
         when (usuarioPorId.provincia) {
-            "Buenos Aires" -> spinnerCiudades.adapter = ciudadesBsAsAA
-            "Catamarca" -> spinnerCiudades.adapter = ciudadesCataAA
-            "Chaco" -> spinnerCiudades.adapter = ciudadesChcAA
-            "Chubut" -> spinnerCiudades.adapter = ciudadesChbAA
-            "Ciudad Autónoma de Buenos Aires" -> spinnerCiudades.adapter = ciudadesCABAAA
-            "Corrientes" -> spinnerCiudades.adapter = ciudadesCorrAA
-            "Córdoba" -> spinnerCiudades.adapter = ciudadesCbaAA
-            "Entre Ríos" -> spinnerCiudades.adapter = ciudadesERAA
-            "Formosa" -> spinnerCiudades.adapter = ciudadesForAA
-            "Jujuy" -> spinnerCiudades.adapter = ciudadesJjyAA
-            "La Pampa" -> spinnerCiudades.adapter = ciudadesLPAA
-            "La Rioja" -> spinnerCiudades.adapter = ciudadesLRAA
-            "Mendoza" -> spinnerCiudades.adapter = ciudadesMzaAA
-            "Misiones" -> spinnerCiudades.adapter = ciudadesMisAA
-            "Neuquén" -> spinnerCiudades.adapter = ciudadesNqnAA
-            "Río Negro" -> spinnerCiudades.adapter = ciudadesRNAA
-            "Salta" -> spinnerCiudades.adapter = ciudadesSaltaAA
-            "San Juan" -> spinnerCiudades.adapter = ciudadesSJAA
-            "San Luis" -> spinnerCiudades.adapter = ciudadesSLAA
-            "Santa Cruz" -> spinnerCiudades.adapter = ciudadesSCAA
-            "Santa Fe" -> spinnerCiudades.adapter = ciudadesSFAA
-            "Santiago del Estero" -> spinnerCiudades.adapter = ciudadesSEAA
-            "Tierra del Fuego, Antártida e Islas del Atlántico Sur" -> spinnerCiudades.adapter = ciudadesTFAA
-            "Tucumán" -> spinnerCiudades.adapter = ciudadesTucAA
+            "Buenos Aires" -> {
+                spinnerCiudades.adapter = ciudadesBsAsAA
+                spinnerProvincia.setSelection(1)
+            }
+            "Catamarca" -> {
+                spinnerCiudades.adapter = ciudadesCataAA
+                spinnerProvincia.setSelection(2)
+            }
+            "Chaco" -> {
+                spinnerCiudades.adapter = ciudadesChcAA
+                spinnerProvincia.setSelection(3)
+            }
+            "Chubut" -> {
+                spinnerCiudades.adapter = ciudadesChbAA
+                spinnerProvincia.setSelection(4)
+            }
+            "Ciudad Autónoma de Buenos Aires" -> {
+                spinnerCiudades.adapter = ciudadesCABAAA
+                spinnerProvincia.setSelection(5)
+            }
+            "Corrientes" -> {
+                spinnerCiudades.adapter = ciudadesCorrAA
+                spinnerProvincia.setSelection(6)
+            }
+            "Córdoba" -> {
+                spinnerCiudades.adapter = ciudadesCbaAA
+                spinnerProvincia.setSelection(7)
+            }
+            "Entre Ríos" -> {
+                spinnerCiudades.adapter = ciudadesERAA
+                spinnerProvincia.setSelection(8)
+            }
+            "Formosa" -> {
+                spinnerCiudades.adapter = ciudadesForAA
+                spinnerProvincia.setSelection(9)
+            }
+            "Jujuy" -> {
+                spinnerCiudades.adapter = ciudadesJjyAA
+                spinnerProvincia.setSelection(10)
+            }
+            "La Pampa" -> {
+                spinnerCiudades.adapter = ciudadesLPAA
+                spinnerProvincia.setSelection(11)
+            }
+            "La Rioja" -> {
+                spinnerCiudades.adapter = ciudadesLRAA
+                spinnerProvincia.setSelection(12)
+            }
+            "Mendoza" -> {
+                spinnerCiudades.adapter = ciudadesMzaAA
+                spinnerProvincia.setSelection(13)
+            }
+            "Misiones" -> {
+                spinnerCiudades.adapter = ciudadesMisAA
+                spinnerProvincia.setSelection(14)
+            }
+            "Neuquén" -> {
+                spinnerCiudades.adapter = ciudadesNqnAA
+                spinnerProvincia.setSelection(15)
+            }
+            "Río Negro" -> {
+                spinnerCiudades.adapter = ciudadesRNAA
+                spinnerProvincia.setSelection(16)
+            }
+            "Salta" -> {
+                spinnerCiudades.adapter = ciudadesSaltaAA
+                spinnerProvincia.setSelection(17)
+            }
+            "San Juan" -> {
+                spinnerCiudades.adapter = ciudadesSJAA
+                spinnerProvincia.setSelection(18)
+            }
+            "San Luis" -> {
+                spinnerCiudades.adapter = ciudadesSLAA
+                spinnerProvincia.setSelection(19)
+            }
+            "Santa Cruz" -> {
+                spinnerCiudades.adapter = ciudadesSCAA
+                spinnerProvincia.setSelection(20)
+            }
+            "Santa Fe" -> {
+                spinnerCiudades.adapter = ciudadesSFAA
+                spinnerProvincia.setSelection(21)
+            }
+            "Santiago del Estero" -> {
+                spinnerCiudades.adapter = ciudadesSEAA
+                spinnerProvincia.setSelection(22)
+            }
+            "Tierra del Fuego, Antártida e Islas del Atlántico Sur" -> {
+                spinnerCiudades.adapter = ciudadesTFAA
+                spinnerProvincia.setSelection(23)
+            }
+            "Tucumán" -> {
+                spinnerCiudades.adapter = ciudadesTucAA
+                spinnerProvincia.setSelection(24)
+            }
         }
 
         spinnerProvincia.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -176,20 +251,19 @@ class ActualizarUsuarioActivity : AppCompatActivity() {
             text = "Actualizar"
         }
         registroBtnRegistrar.setOnClickListener {
-            val db = DatabaseHelper(this)
             val usuario = Usuario()
-            usuario.nombre = findViewById<TextInputEditText>(R.id.registroCampoNombre).text.toString()
-            usuario.apellido = findViewById<TextInputEditText>(R.id.registroCampoApellido).text.toString()
-            usuario.dni = findViewById<TextInputEditText>(R.id.registroCampoDNI).text.toString().toInt()
-            usuario.contrasenia = findViewById<TextInputEditText>(R.id.registroCampoContrasenia).text.toString()
+            usuario.nombre = registroCampoNombre.text.toString()
+            usuario.apellido = registroCampoApellido.text.toString()
+            usuario.dni = registroCampoDNI.text.toString().toInt()
+            usuario.contrasenia = registroCampoContrasenia.text.toString()
             usuario.genero = when {
                 registroGeneroF.isChecked -> "F"
                 registroGeneroM.isChecked -> "M"
                 else -> "O"
             }
-            usuario.fechaNacimiento = findViewById<TextInputEditText>(R.id.registroCampoFechaNacimiento).text.toString()
-            usuario.provincia = findViewById<Spinner>(R.id.registroCampoProvincia).selectedItem.toString()
-            usuario.ciudad = findViewById<Spinner>(R.id.registroCampoCiudad).selectedItem.toString()
+            usuario.fechaNacimiento = registroCampoFechaNacimiento.text.toString()
+            usuario.provincia = spinnerProvincia.selectedItem.toString()
+            usuario.ciudad = spinnerCiudades.selectedItem.toString()
             if (idUsuario != null) usuario.id = idUsuario
             db.modificarUsuario(usuario)
             val intent = Intent(this, MainActivity::class.java)
