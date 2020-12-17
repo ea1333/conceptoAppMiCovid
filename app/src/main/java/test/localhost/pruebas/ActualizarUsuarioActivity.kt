@@ -266,7 +266,8 @@ class ActualizarUsuarioActivity : AppCompatActivity() {
             usuario.ciudad = spinnerCiudades.selectedItem.toString()
             if (idUsuario != null) usuario.id = idUsuario
             db.modificarUsuario(usuario)
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, DashboardActivity::class.java)
+            intent.putExtra(EXTRA_DNI, usuario.dni)
             startActivity(intent)
         }
     }
